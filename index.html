@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>궁동·어은동 생존 지도</title>
+<meta name="description" content="충남대와 KAIST 사이 대학가, 궁동·어은동 가게들의 10년 생존 기록과 새내기 동네 탐험을 3D 지도로">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="m-survival">
+<div id="scene"></div>
+<div id="labels"></div>
+<div id="edgeArrow" hidden>➤</div>
+
+<nav class="panel" id="modeSwitch" aria-label="모드">
+  <button data-mode="survival" class="on">🗺 10년 생존 지도</button>
+  <button data-mode="explore">🎒 새내기 탐험</button>
+</nav>
+
+<header class="panel" id="title">
+  <button class="chipOpen" id="titleChip" aria-label="설명 펼치기"><b>궁동·어은동</b> <span id="modeChip">10년 생존 지도</span></button>
+  <div class="full">
+    <span class="tag" id="dataTag">충남대 ↔ KAIST 사이 대학가 · 음식점·카페·PC방</span>
+    <h1>궁동·어은동<br><span id="modeName">10년 생존 지도</span></h1>
+    <p class="only-survival">2016년부터 지금까지, 대학가 가게가 언제 생기고 사라졌는지 연도를 움직이며 봐요. 건물을 누르면 그 자리를 거쳐 간 가게가 나와요.</p>
+    <p class="only-explore">입학 전에 동네를 미리 걸어 봐요. 실제 축척이라 걸은 만큼 거리 감각이 생겨요. 가게나 땅을 누르면 거기까지 걸리는 시간을 알려 줘요.</p>
+    <div class="seg only-survival" id="areaSeg">
+      <button data-area="all" class="on">전체</button>
+      <button data-area="어은동">어은동</button>
+      <button data-area="궁동">궁동</button>
+    </div>
+  </div>
+</header>
+
+<!-- 생존 지도: 통계 / 이 자리 탭 -->
+<aside class="panel only-survival" id="stats">
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tabStats" class="on">통계</button>
+    <button role="tab" id="tabPlace" disabled>이 자리의 역사</button>
+    <button class="fold" id="statsFold" aria-label="통계 접기">–</button>
+  </div>
+  <section id="paneStats">
+    <h2><span id="statYear">2026</span> <span id="statArea">궁동·어은동</span></h2>
+    <div class="kpis">
+      <div class="kpi"><b id="kOpen">0</b><span>영업 중</span></div>
+      <button class="kpi new" id="kNewBtn" title="그해 새로 연 가게만 보기"><b id="kNew">0</b><span>그해 개업</span></button>
+      <button class="kpi closed" id="kClosedBtn" title="그해 문 닫은 가게만 보기"><b id="kClosed">0</b><span>그해 폐업</span></button>
+    </div>
+    <h3>업종 <small>눌러서 그 업종만 보기</small></h3>
+    <div id="mix" class="mix"></div>
+    <div id="catList" class="catList"></div>
+    <h3>3년 넘게 버틴 비율 <small>2010년 이후 개업 · <span id="survTotal"></span></small></h3>
+    <div id="survival"></div>
+    <div class="qcard" id="qcard"><h3>💡 의외의 질문</h3><p id="qText"></p><button id="qAnsBtn" hidden>정답 보기</button><p id="qAns" hidden></p></div>
+  </section>
+  <section id="panePlace" hidden>
+    <div id="placeList"></div>
+  </section>
+</aside>
+
+<div class="panel only-survival" id="timeline">
+  <div class="top">
+    <span id="year">2026</span>
+    <div class="seg" id="colorSeg" title="건물 색으로 볼 것">
+      <button data-color="change" class="on">그해 변화</button>
+      <button data-color="cat">업종 색</button>
+    </div>
+  </div>
+  <input type="range" id="slider" min="0" max="10" step="1" value="10" aria-label="연도">
+  <div class="ticks" id="ticks"></div>
+  <div class="btns">
+    <button id="btnPlay" class="primary">▶ 10년 재생</button>
+    <button id="btnBird">🗺️ 전체 보기</button>
+    <button id="btnStart">📍 쪽문 GS25</button>
+    <button id="btnLabels" class="on">이름표</button>
+    <span id="yearNote"></span>
+  </div>
+</div>
+
+<!-- 새내기 탐험 -->
+<aside class="panel only-explore" id="explore">
+  <button class="fold" id="exploreFold" aria-label="설정 접기">–</button>
+  <h2>이동 수단</h2>
+  <div class="seg" id="vehSeg">
+    <button data-veh="walk" class="on">🚶 도보</button>
+    <button data-veh="bike">🚲 자전거</button>
+    <button data-veh="kick">🛴 킥보드</button>
+  </div>
+  <p class="note" id="vehNote"></p>
+  <h3>어디 갈까요?</h3>
+  <div class="seg wrap" id="quickSeg"></div>
+  <details id="moreOpts">
+  <summary>더보기 ▾</summary>
+  <h3>보기</h3>
+  <div class="seg wrap">
+    <button id="btnTop">🗺 한눈에 보기</button>
+    <button id="btnRings">⏱ 5·10·15분 범위</button>
+    <button id="btnPins" class="on">📌 생활 지도</button>
+    <button id="btnShopLbl" class="on">가게 이름</button>
+  </div>
+  <div class="seg wrap" id="pinSeg"></div>
+  <div id="ringLegend" hidden></div>
+  <h3>화면 배속 <small title="화면만 빠르게 움직여요. 시간은 실제 속도 기준이에요">화면만 빠르게 · 시간은 실제 기준</small></h3>
+  <div class="seg" id="mulSeg">
+    <button data-mul="1" class="on">1×</button>
+    <button data-mul="3">3×</button>
+    <button data-mul="10">10×</button>
+  </div>
+  <h3>이동</h3>
+  <div class="seg wrap">
+    <button id="btnAuto">🧭 쪽문→궁동 자동 안내</button>
+    <button id="btnHome">📍 쪽문 GS25로</button>
+    <button id="btnResetHud">기록 초기화</button>
+  </div>
+  </details>
+</aside>
+
+<aside class="panel only-explore" id="routeBox" hidden>
+  <button class="fold" id="routeClose" aria-label="경로 지우기">×</button>
+  <h2>여기까지 얼마나 걸릴까?</h2>
+  <div id="routeInfo"></div>
+  <div class="btns"><button id="btnGoRoute" class="primary">이 길로 이동</button></div>
+</aside>
+
+<div class="panel only-explore" id="hud">
+  <div class="hero"><span>실제로 걸리는 시간</span><b id="hTime">0초</b></div>
+  <div class="sub">
+    <div><span>이동 거리</span><b id="hDist">0 m</b></div>
+    <div><span>속도</span><b id="hSpeed">0km/h</b> <em id="hRun" hidden>달리는 중</em></div>
+    <div><span>화면</span><b id="hMul">실제 속도</b></div>
+  </div>
+  <div id="hRoute" hidden></div>
+</div>
+<div class="panel only-explore" id="hint">
+  <span><kbd>W</kbd><kbd>↑</kbd> 앞으로</span><span><kbd>A</kbd><kbd>D</kbd> 방향</span><span>꾹 / <kbd>Shift</kbd> 달리기</span><span>드래그 둘러보기 · 누르면 길 찾기</span>
+</div>
+<div id="keycaps" class="only-explore" hidden>
+  <div class="caps"><kbd>W</kbd><small>앞으로</small></div>
+  <div class="caps"><kbd>A</kbd><kbd>D</kbd><small>방향 바꾸기</small></div>
+  <div class="caps"><kbd>Shift</kbd><small>또는 꾹 눌러 달리기</small></div>
+  <div class="caps"><kbd class="mouse" aria-label="마우스"><svg viewBox="0 0 16 22" width="14" height="19" aria-hidden="true"><rect x="1.5" y="1.5" width="13" height="19" rx="6.5" fill="#fff" stroke="currentColor" stroke-width="1.6"/><line x1="8" y1="1.5" x2="8" y2="9" stroke="currentColor" stroke-width="1.6"/><rect x="6.6" y="4" width="2.8" height="4" rx="1.4" fill="currentColor"/></svg></kbd><small>드래그로 둘러보기 · 누르면 길 찾기</small></div>
+  <p class="touchOnly">오른쪽 아래 동그라미를 끌어서 움직여요 · 가게를 누르면 걸리는 시간</p>
+</div>
+<div id="joy" class="only-explore"><div id="joyKnob"></div></div>
+
+<button id="infoBtn" aria-label="출처와 주의">ⓘ</button>
+<div class="panel" id="credit" hidden></div>
+<div id="intro" class="panel" hidden></div>
+<div id="loading"><b>궁동·어은동</b><span id="loadStep">데이터 불러오는 중…</span></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="signs.js" onerror="this.remove()"></script>
+<script src="streetdetails.js" onerror="this.remove()"></script>
+<script src="app.js"></script>
+</body>
+</html>

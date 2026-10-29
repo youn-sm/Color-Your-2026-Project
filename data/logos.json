@@ -1,0 +1,331 @@
+{
+ "brands": {
+  "gs25": {
+   "name": "GS25",
+   "match": [
+    "GS25",
+    "지에스25"
+   ],
+   "bg": "#ffffff",
+   "fg": "#0a84d6",
+   "file": "assets/logos/gs25.svg"
+  },
+  "cu": {
+   "name": "CU",
+   "match": [
+    "씨유",
+    "CU "
+   ],
+   "bg": "#ffffff",
+   "fg": "#652f8d",
+   "file": "assets/logos/cu.svg"
+  },
+  "7eleven": {
+   "name": "세븐일레븐",
+   "match": [
+    "세븐일레븐"
+   ],
+   "bg": "#ffffff",
+   "fg": "#008061",
+   "file": "assets/logos/7eleven.svg"
+  },
+  "emart24": {
+   "name": "이마트24",
+   "match": [
+    "이마트24"
+   ],
+   "bg": "#ffd400",
+   "fg": "#222222",
+   "file": "assets/logos/emart24.svg"
+  },
+  "lottesuper": {
+   "name": "롯데슈퍼",
+   "match": [
+    "롯데슈퍼"
+   ],
+   "bg": "#ffffff",
+   "fg": "#e60012"
+  },
+  "starbucks": {
+   "name": "스타벅스",
+   "match": [
+    "스타벅스"
+   ],
+   "bg": "#00704a",
+   "fg": "#ffffff"
+  },
+  "mega": {
+   "name": "메가MGC커피",
+   "match": [
+    "메가엠지씨",
+    "메가커피",
+    "메가MGC"
+   ],
+   "bg": "#ffd400",
+   "fg": "#3c2415",
+   "file": "assets/logos/mega.png",
+   "source": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Mega_MGC_Coffee_logo.png"
+  },
+  "paik": {
+   "name": "빽다방",
+   "match": [
+    "빽다방"
+   ],
+   "bg": "#ffd400",
+   "fg": "#1b3a8a"
+  },
+  "compose": {
+   "name": "컴포즈커피",
+   "match": [
+    "컴포즈커피"
+   ],
+   "bg": "#ffd400",
+   "fg": "#111111",
+   "file": "assets/logos/compose.svg",
+   "source": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Compose_Coffee_logo.svg"
+  },
+  "ediya": {
+   "name": "이디야커피",
+   "match": [
+    "이디야"
+   ],
+   "bg": "#1d2d64",
+   "fg": "#ffffff",
+   "file": "assets/logos/ediya.png"
+  },
+  "theventi": {
+   "name": "더벤티",
+   "match": [
+    "더벤티"
+   ],
+   "bg": "#ffffff",
+   "fg": "#5b2a86"
+  },
+  "mammoth": {
+   "name": "매머드커피",
+   "match": [
+    "매머드커피"
+   ],
+   "bg": "#ffffff",
+   "fg": "#2d2d2d"
+  },
+  "banapresso": {
+   "name": "바나프레소",
+   "match": [
+    "바나프레소"
+   ],
+   "bg": "#ffffff",
+   "fg": "#e8380d"
+  },
+  "gongcha": {
+   "name": "공차",
+   "match": [
+    "공차"
+   ],
+   "bg": "#ffffff",
+   "fg": "#c8102e",
+   "file": "assets/logos/gongcha.svg"
+  },
+  "baskin": {
+   "name": "배스킨라빈스",
+   "match": [
+    "베스킨",
+    "배스킨"
+   ],
+   "bg": "#ffffff",
+   "fg": "#e31d93",
+   "file": "assets/logos/baskin.svg"
+  },
+  "parisbaguette": {
+   "name": "파리바게뜨",
+   "match": [
+    "파리바게트",
+    "파리바게뜨"
+   ],
+   "bg": "#ffffff",
+   "fg": "#1d3f8f"
+  },
+  "momstouch": {
+   "name": "맘스터치",
+   "match": [
+    "맘스터치"
+   ],
+   "bg": "#ffffff",
+   "fg": "#e2231a",
+   "file": "assets/logos/momstouch.svg",
+   "source": "https://upload.wikimedia.org/wikipedia/commons/0/05/Mom%27s_Touch_logo_%282020%29.svg"
+  },
+  "lotteria": {
+   "name": "롯데리아",
+   "match": [
+    "롯데리아"
+   ],
+   "bg": "#ffffff",
+   "fg": "#e60012"
+  },
+  "nobrand": {
+   "name": "노브랜드 버거",
+   "match": [
+    "노브랜드버거"
+   ],
+   "bg": "#ffd400",
+   "fg": "#111111"
+  },
+  "subway": {
+   "name": "써브웨이",
+   "match": [
+    "써브웨이",
+    "서브웨이"
+   ],
+   "bg": "#ffffff",
+   "fg": "#008c15",
+   "file": "assets/logos/subway.svg",
+   "source": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Alternative_subway_logo.svg"
+  },
+  "dominos": {
+   "name": "도미노피자",
+   "match": [
+    "도미노피자"
+   ],
+   "bg": "#ffffff",
+   "fg": "#006491",
+   "file": "assets/logos/dominos.svg",
+   "source": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Domino%27s_pizza_logo.svg"
+  },
+  "bhc": {
+   "name": "bhc치킨",
+   "match": [
+    "BHC",
+    "비에이치씨",
+    "bhc"
+   ],
+   "bg": "#ffffff",
+   "fg": "#d71920"
+  },
+  "bbq": {
+   "name": "BBQ",
+   "match": [
+    "비비큐",
+    "BBQ"
+   ],
+   "bg": "#ffffff",
+   "fg": "#e4002b"
+  },
+  "pelicana": {
+   "name": "페리카나",
+   "match": [
+    "페리카나"
+   ],
+   "bg": "#ffffff",
+   "fg": "#e60012"
+  },
+  "cheogajip": {
+   "name": "처갓집양념치킨",
+   "match": [
+    "처갓집"
+   ],
+   "bg": "#ffffff",
+   "fg": "#e60012"
+  },
+  "norang": {
+   "name": "노랑통닭",
+   "match": [
+    "노랑통닭"
+   ],
+   "bg": "#ffd400",
+   "fg": "#111111"
+  },
+  "kyochon": {
+   "name": "교촌치킨",
+   "match": [
+    "교촌"
+   ],
+   "bg": "#111111",
+   "fg": "#c8a252"
+  },
+  "bonjuk": {
+   "name": "본죽",
+   "match": [
+    "본죽"
+   ],
+   "bg": "#ffffff",
+   "fg": "#7b4a2c"
+  },
+  "bondosirak": {
+   "name": "본도시락",
+   "match": [
+    "본도시락"
+   ],
+   "bg": "#ffffff",
+   "fg": "#7b4a2c"
+  },
+  "hansot": {
+   "name": "한솥도시락",
+   "match": [
+    "한솥"
+   ],
+   "bg": "#ffffff",
+   "fg": "#f26522",
+   "file": "assets/logos/hansot.png",
+   "source": "https://upload.wikimedia.org/wikipedia/commons/e/e0/%ED%95%9C%EC%86%A5%EB%A1%9C%EA%B3%A0.png"
+  },
+  "isaac": {
+   "name": "이삭토스트",
+   "match": [
+    "이삭토스트"
+   ],
+   "bg": "#ffffff",
+   "fg": "#5a2d82",
+   "file": "assets/logos/isaac.svg",
+   "source": "https://upload.wikimedia.org/wikipedia/en/1/13/Isaac_Toast_logo.svg"
+  },
+  "sinjeon": {
+   "name": "신전떡볶이",
+   "match": [
+    "신전떡볶이"
+   ],
+   "bg": "#e60012",
+   "fg": "#ffffff"
+  },
+  "gobongmin": {
+   "name": "고봉민김밥",
+   "match": [
+    "고봉민"
+   ],
+   "bg": "#ffffff",
+   "fg": "#111111"
+  },
+  "yeokjeon_beer": {
+   "name": "역전할머니맥주",
+   "match": [
+    "역전할머니맥주"
+   ],
+   "bg": "#ffd400",
+   "fg": "#111111"
+  },
+  "tudari": {
+   "name": "투다리",
+   "match": [
+    "투다리"
+   ],
+   "bg": "#ffffff",
+   "fg": "#e60012"
+  },
+  "yoajung": {
+   "name": "요아정",
+   "match": [
+    "요아정"
+   ],
+   "bg": "#ffffff",
+   "fg": "#111111"
+  },
+  "salady": {
+   "name": "샐러디",
+   "match": [
+    "샐러디"
+   ],
+   "bg": "#ffffff",
+   "fg": "#2e7d32"
+  }
+ }
+}
