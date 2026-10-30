@@ -1,4 +1,4 @@
-// 궁동·어은동 생존 지도 + 새내기 탐험: 로우폴리 3D 웹
+// 어궁동 10년 지도 (어궁동 가게 역사): 10년 변화 + 새내기 시뮬레이션, 로우폴리 3D 웹
 // 데이터: data/osm.json (tools/build-osm.mjs), data/shops.json (없으면 shops.sample.json), data/questions.json
 (async function () {
 'use strict';
@@ -473,7 +473,7 @@ instanced(new THREE.BoxGeometry(0.12, 0.12, 1.6).translate(0, 6.6, 0.8), '#5d616
   scene.add(wires);
 }
 
-// 주차된 차: 쪽문 앞 골목(거리뷰처럼 한쪽에 줄지어 주차)과 궁동 골목. 탐험할 때 부딪히는 장애물이기도 함
+// 주차된 차: 쪽문 앞 골목(거리뷰처럼 한쪽에 줄지어 주차)과 궁동 골목. 시뮬레이션할 때 부딪히는 장애물이기도 함
 const CARCOL = ['#f4f4f4', '#c9ccd1', '#2d2f33', '#8a8f96', '#f4f4f4', '#c9ccd1', '#3c5a9a', '#ffd400'];
 const cars = [];
 for (let s = 10; s < WALK_TOTAL; s += (s < 200 ? 6.5 : 30 + rand() * 30)) {
@@ -498,14 +498,14 @@ const people = [];
 const gate = osm.gate;
 for (let k = 0; k < 12; k++) {
   const p = { x: gate[0] + (rand() - 0.5) * 10, z: gate[1] + 4 + rand() * 24, ry: rand() * 6.28 };
-  if (Math.hypot(p.x - walkAt(0).x, p.z - walkAt(0).z) > 10 && Math.hypot(p.x - walkAt(22).x, p.z - walkAt(22).z) > 10 && !occupied([p.x, p.z])) people.push(p); // 탐험 시작 자리 앞은 비워 둠
+  if (Math.hypot(p.x - walkAt(0).x, p.z - walkAt(0).z) > 10 && Math.hypot(p.x - walkAt(22).x, p.z - walkAt(22).z) > 10 && !occupied([p.x, p.z])) people.push(p); // 시뮬레이션 시작 자리 앞은 비워 둠
 }
 for (let s = 30; s < WALK_TOTAL; s += 22 + rand() * 25) {
   const p = walkAt(s), l = Math.hypot(p.dx, p.dz) || 1, side = rand() < 0.5 ? -3.0 : 3.4;
   people.push({ x: p.x - p.dz / l * side, z: p.z + p.dx / l * side, ry: Math.atan2(p.dx, p.dz) + (rand() < 0.5 ? Math.PI : 0) });
 }
 people.forEach((p, i) => { p.o = OUTFIT[i % OUTFIT.length]; });
-// 사람은 탐험할 때 부딪히는 장애물 (solids는 쪽문 디테일에서 선언되므로 나중에 추가)
+// 사람은 시뮬레이션할 때 부딪히는 장애물 (solids는 쪽문 디테일에서 선언되므로 나중에 추가)
 instanced(new THREE.CylinderGeometry(0.17, 0.2, 0.85, 6).translate(0, 0.43, 0), '#ffffff', people.map(p => ({ ...p, color: p.o[1] })));
 instanced(new THREE.CylinderGeometry(0.24, 0.2, 0.65, 6).translate(0, 1.18, 0), '#ffffff', people.map(p => ({ ...p, color: p.o[0] })));
 instanced(new THREE.IcosahedronGeometry(0.17, 1).translate(0, 1.66, 0), '#f2c9a6', people);
@@ -532,7 +532,7 @@ function facadeSign(b, toward, mesh, y) {
 
 // ---------- 쪽문 디테일 (거리뷰 참고) ----------
 const kaist = campuses.find(a => a.name === '한국과학기술원');
-const solids = []; // 탐험 충돌용 작은 장애물 [x, z, 반경]
+const solids = []; // 시뮬레이션 충돌용 작은 장애물 [x, z, 반경]
 {
   const b = new Builder();
   let best = null, bd = Infinity;
@@ -654,7 +654,7 @@ function updateStats() {
   const t = SNAP_T[snapIdx], t0 = prevT(snapIdx), list = shops.filter(inArea);
   const act = list.filter(s => activeAt(s, t));
   $('statYear').textContent = fmtSnap(snapIdx);
-  $('statArea').textContent = area === 'all' ? '궁동·어은동' : area;
+  $('statArea').textContent = area === 'all' ? '어궁동' : area;
   $('kOpen').textContent = act.length;
   $('kNew').textContent = list.filter(s => !s.openBefore && s.openT > t0 && s.openT <= t).length;
   $('kClosed').textContent = list.filter(s => s.closeT > t0 && s.closeT <= t).length;
@@ -794,7 +794,7 @@ function showPlace(b) {
   refreshLabels(true);
 }
 
-// ---------- 카메라: 생존 지도 ----------
+// ---------- 카메라: 10년 변화 ----------
 let fly = null;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 function flyTo(pos, target, dur = 1400) {
@@ -819,7 +819,7 @@ controls.addEventListener('start', () => { fly = null; userTook(); });
 function collapseTitle() { $('title').classList.add('chip'); }
 $('titleChip').onclick = () => $('title').classList.remove('chip');
 
-// ---------- 생존 지도 컨트롤 ----------
+// ---------- 10년 변화 컨트롤 ----------
 const slider = $('slider');
 slider.min = 0; slider.max = LAST; slider.value = snapIdx;
 $('ticks').innerHTML = SNAP.map((d, i) => `<span>${i === LAST ? fmtSnap(i).slice(2) : "'" + d.slice(2, 4)}</span>`).join('');
@@ -1030,7 +1030,7 @@ function refreshSigns(force) {
   }
 }
 
-// ================= 새내기 탐험 =================
+// ================= 새내기 시뮬레이션 =================
 // 속도는 실제 축척(m/s). 화면 배속(mul)은 화면에서만 빠르게 보여 주고, 거리·시간 표시는 실제 속도로 계산
 const VEH = {
   walk: { name: '도보', icon: '🚶', kmh: 4.5, run: 9, eye: 1.65, cam: [5.5, 2.4], acc: 6 },
@@ -1118,7 +1118,7 @@ addEventListener('pointerup', e => {
   if (click && e.target === renderer.domElement) pick(e.clientX, e.clientY);
 });
 
-// 선택: 생존 지도에서는 이 자리의 역사, 탐험에서는 경로와 시간
+// 선택: 10년 변화에서는 이 자리의 역사, 시뮬레이션에서는 경로와 시간
 const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
 function pick(cx, cy) {
   mouse.set(cx / innerWidth * 2 - 1, -cy / innerHeight * 2 + 1);
@@ -1291,7 +1291,7 @@ function refreshPins() {
     .filter(([d]) => d < (topView ? 260 : 160)).sort((a, b) => a[0] - b[0]).slice(0, 24).map(([, p]) => p);
 }
 
-// 탐험 UI
+// 시뮬레이션 UI
 function setVeh(k) {
   veh = k;
   document.querySelectorAll('#vehSeg button').forEach(b => b.classList.toggle('on', b.dataset.veh === k));
@@ -1384,10 +1384,10 @@ function setMode(m) {
   document.body.classList.toggle('m-survival', m === 'survival');
   document.body.classList.toggle('m-explore', m === 'explore');
   document.querySelectorAll('#modeSwitch button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
-  $('modeName').textContent = $('modeChip').textContent = m === 'survival' ? '10년 생존 지도' : '새내기 탐험';
+  $('modeName').textContent = $('modeChip').textContent = m === 'survival' ? '10년 변화' : '새내기 시뮬레이션';
   controls.autoRotate = false; if (m === 'explore') collapseTitle();
   stopPlay();
-  update(); // 탐험에서는 '그해 변화' 흐림을 풀고 업종 색으로
+  update(); // 시뮬레이션에서는 '그해 변화' 흐림을 풀고 업종 색으로
   if (m === 'explore') {
     if (snapIdx !== LAST || area !== 'all') { snapIdx = LAST; slider.value = LAST; area = 'all'; document.querySelectorAll('#areaSeg button').forEach(b => b.classList.toggle('on', b.dataset.area === 'all')); update(); }
     controls.enabled = false; fly = null; scene.fog.near = 80; scene.fog.far = 420;
@@ -1411,7 +1411,7 @@ let hintTimer = null, keycapsShown = false;
 function showHint() { $('hint').classList.remove('dim'); clearTimeout(hintTimer); hintTimer = setTimeout(() => $('hint').classList.add('dim'), 7000); }
 
 // 출처·주의 (ⓘ)
-$('credit').innerHTML = `<b>가게</b> ${(shopsData.sources || []).join(', ')}${shopsData.note ? '<br>' + shopsData.note : ''}<br>` +
+$('credit').innerHTML = `<b>어궁동 10년 지도</b> · 어궁동 가게 역사<br><b>가게</b> ${(shopsData.sources || []).join(', ')}${shopsData.note ? '<br>' + shopsData.note : ''}<br>` +
   '기간은 같은 영업 허가 기준이라 상호·주인이 중간에 바뀌었을 수 있어요.<br>' +
   (osm.buildings.some(b => b.gov) ? '<b>건물</b> 국토교통부 GIS건물통합정보(브이월드, 2025.06) · ' : '') +
   `<b>지도</b> ${osm.attribution}${osm.buildings.some(b => b.generated) ? ' · 상권 블록 일부 건물은 OSM에 외곽선이 없어 도로를 따라 추정 배치했어요' : ''}.<br>` +
@@ -1420,10 +1420,10 @@ if (isSample) { $('dataTag').textContent = '더미 데이터 · 실제 데이터
 
 // 처음 안내: 무엇을 할 수 있는지 두 갈래로
 $('intro').innerHTML = `<p class="kicker">📍 KAIST 쪽문 GS25에서 출발</p>
-  <h2>충남대와 KAIST 사이,<br>궁동·어은동을 3D로 옮겼어요</h2>
+  <h2>충남대와 KAIST 사이,<br>어궁동(어은동·궁동)을 3D로 옮겼어요</h2>
   <div class="choices">
-    <button class="choice main" id="introSurv"><b>🗺 10년 생존 지도 보기</b><span>지금 재생 중이에요. 초록은 그해 문 연 가게, 빨강은 문 닫은 가게예요</span></button>
-    <button class="choice sub" id="introExp"><b>🎒 새내기 탐험</b><span>걷거나 자전거·킥보드로 동네를 돌아다니며 거리와 시간을 익혀요</span></button>
+    <button class="choice main" id="introSurv"><b>🗺 10년 변화 보기</b><span>지금 재생 중이에요. 초록은 그해 문 연 가게, 빨강은 문 닫은 가게예요</span></button>
+    <button class="choice sub" id="introExp"><b>🎒 새내기 시뮬레이션</b><span>걷거나 자전거·킥보드로 동네를 돌아다니며 거리와 시간을 익혀요</span></button>
   </div>
   <p class="foot">위쪽 버튼으로 언제든 바꿀 수 있어요</p>`;
 $('intro').hidden = false;

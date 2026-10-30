@@ -1,4 +1,4 @@
-/* 궁동·어은동 생존 지도
+/* 어궁동 10년 지도 (어궁동 가게 역사)
    토큰: 포스터(COLOR YOUR 2026)의 노랑·하늘·토마토·초록, 잉크색 테두리 + 어긋난 그림자 '스티커' 패널 */
 :root {
   --paper: #fffef7; --ink: #16161a; --mute: #625e55; --line: rgba(22,22,26,.14);
@@ -10,7 +10,7 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html, body { margin: 0; height: 100%; overflow: hidden; background: var(--ground); color: var(--ink); font-family: var(--body);
-  -webkit-font-smoothing: antialiased; font-size: 14px; }
+  -webkit-font-smoothing: antialiased; font-size: 14px; word-break: keep-all; overflow-wrap: break-word; }
 #scene { position: fixed; inset: 0; }
 button { font: inherit; font-size: 13px; font-weight: 600; padding: 7px 11px; border-radius: 10px; border: 1.5px solid var(--ink);
   background: #fff; color: var(--ink); cursor: pointer; white-space: nowrap; min-height: 34px; }
@@ -42,7 +42,8 @@ body.m-survival .only-explore, body.m-explore .only-survival { display: none !im
 /* 제목: 첫 조작 뒤 칩으로 접힘 */
 #title { top: 14px; left: 14px; width: 330px; }
 #title h1 { font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1.08; margin-bottom: 8px; }
-#title h1 span { background: linear-gradient(transparent 58%, var(--sun) 58%); }
+#title h1 span { background: linear-gradient(transparent 62%, var(--sun) 62%); }
+#title .subtitle { margin: 0 0 8px; font-size: 13px; font-weight: 700; color: var(--ink); }
 #title p { margin: 0 0 12px; font-size: 13px; color: var(--mute); line-height: 1.6; }
 .chipOpen { display: none; }
 #title.chip { width: auto; padding: 4px; border-radius: 12px; }
@@ -113,7 +114,7 @@ input[type=range] { width: 100%; accent-color: #e0b400; margin: 8px 0 0; }
 #edgeArrow { position: fixed; left: 0; top: 0; z-index: 3; width: 34px; height: 34px; display: grid; place-items: center; background: #1a6dff; color: #fff;
   border: 2px solid var(--ink); border-radius: 50%; font-size: 15px; pointer-events: none; }
 
-/* 탐험 */
+/* 시뮬레이션 */
 #explore { top: 14px; right: 14px; width: 312px; max-height: calc(100vh - 170px); overflow: auto; }
 #explore.folded > *:not(h2):not(.fold):not(#vehSeg) { display: none; }
 #moreOpts { margin-top: 12px; border-top: 1.5px solid var(--line); padding-top: 8px; }
@@ -176,6 +177,7 @@ body.m-survival #infoBtn { bottom: 14px; }
 #intro .foot { margin: 10px 0 0; font-size: 11px; color: var(--mute); }
 #loading { position: fixed; inset: 0; display: grid; place-content: center; gap: 8px; text-align: center; background: var(--sun); z-index: 20; }
 #loading b { font-family: var(--display); font-weight: 400; font-size: 44px; }
+#loading small { font-size: 15px; font-weight: 700; }
 #loading span { font-size: 14px; font-weight: 600; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
@@ -186,6 +188,7 @@ body.m-survival #infoBtn { bottom: 14px; }
   #stats, #explore { width: 290px; }
   #timeline { width: min(560px, calc(100% - 28px)); }
 }
+@media (max-width: 1100px) { #hint { display: none; } } /* 가운데 시간 표시와 겹치지 않게 */
 @media (max-width: 1000px) {
   #modeSwitch { top: auto; bottom: 14px; left: 14px; transform: none; }
   body.m-survival #modeSwitch { bottom: 178px; } body.m-explore #modeSwitch { bottom: 120px; }
@@ -195,23 +198,23 @@ body.m-survival #infoBtn { bottom: 14px; }
   html, body { font-size: 13px; }
   #modeSwitch { top: 10px; bottom: auto !important; left: 50%; transform: translateX(-50%); }
   #modeSwitch button { font-size: 13px; padding: 7px 11px; }
-  #title { top: 62px; left: 10px; width: auto; right: 10px; }
-  #title p { display: none; }
+  #title { top: 66px; left: 10px; width: auto; right: 10px; }
+  #title p:not(.subtitle) { display: none; }
   #title h1 { font-size: 22px; }
-  #stats { top: auto; bottom: 172px; left: 10px; right: 10px; width: auto; max-height: 38vh; }
+  #stats { top: auto; bottom: 200px; left: 10px; right: 10px; width: auto; max-height: 38vh; }
   #timeline { bottom: 10px; width: calc(100% - 20px); padding: 8px 12px; }
   #year { font-size: 30px; }
   #yearNote { display: none; }
   body.m-explore #title { display: none; }
-  #explore { top: 62px; left: 10px; right: 10px; width: auto; max-height: 46vh; padding: 10px 12px; }
+  #explore { top: 66px; left: 10px; right: 10px; width: auto; max-height: 46vh; padding: 10px 12px; }
   body.route-open #explore { display: none; }
-  #routeBox { left: 10px; right: 10px; width: auto; top: 62px; bottom: auto; }
+  #routeBox { left: 10px; right: 10px; width: auto; top: 66px; bottom: auto; }
   #hud { bottom: 10px; grid-template-columns: 1fr; }
   #hud .sub { justify-content: start; }
   .hero b { font-size: 26px; }
   #joy { bottom: 140px; }
   #intro { left: 10px; right: 10px; width: auto; top: auto; bottom: 10px; transform: none; }
-  #infoBtn { top: 62px; bottom: auto !important; right: 10px; }
-  #credit { top: 102px; bottom: auto; right: 10px; }
+  #infoBtn { top: 16px; bottom: auto !important; right: 8px; min-height: 34px; }
+  #credit { top: 56px; bottom: auto; right: 10px; }
   button { min-height: 40px; }
 }

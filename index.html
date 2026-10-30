@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>궁동·어은동 생존 지도</title>
-<meta name="description" content="충남대와 KAIST 사이 대학가, 궁동·어은동 가게들의 10년 생존 기록과 새내기 동네 탐험을 3D 지도로">
+<title>어궁동 10년 지도 · 어궁동 가게 역사</title>
+<meta name="description" content="어궁동 가게 역사: 충남대와 KAIST 사이 대학가, 어은동·궁동 가게들의 10년 변화와 새내기 동네 시뮬레이션을 3D 지도로">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,15 +19,16 @@
 <div id="edgeArrow" hidden>➤</div>
 
 <nav class="panel" id="modeSwitch" aria-label="모드">
-  <button data-mode="survival" class="on">🗺 10년 생존 지도</button>
-  <button data-mode="explore">🎒 새내기 탐험</button>
+  <button data-mode="survival" class="on">🗺 10년 변화</button>
+  <button data-mode="explore">🎒 새내기 시뮬레이션</button>
 </nav>
 
 <header class="panel" id="title">
-  <button class="chipOpen" id="titleChip" aria-label="설명 펼치기"><b>궁동·어은동</b> <span id="modeChip">10년 생존 지도</span></button>
+  <button class="chipOpen" id="titleChip" aria-label="설명 펼치기"><b>어궁동 10년 지도</b> <span id="modeChip">10년 변화</span></button>
   <div class="full">
     <span class="tag" id="dataTag">충남대 ↔ KAIST 사이 대학가 · 음식점·카페·PC방</span>
-    <h1>궁동·어은동<br><span id="modeName">10년 생존 지도</span></h1>
+    <h1><span>어궁동 10년 지도</span></h1>
+    <p class="subtitle">어궁동 가게 역사 · <span id="modeName">10년 변화</span></p>
     <p class="only-survival">2016년부터 지금까지, 대학가 가게가 언제 생기고 사라졌는지 연도를 움직이며 봐요. 건물을 누르면 그 자리를 거쳐 간 가게가 나와요.</p>
     <p class="only-explore">입학 전에 동네를 미리 걸어 봐요. 실제 축척이라 걸은 만큼 거리 감각이 생겨요. 가게나 땅을 누르면 거기까지 걸리는 시간을 알려 줘요.</p>
     <div class="seg only-survival" id="areaSeg">
@@ -38,7 +39,7 @@
   </div>
 </header>
 
-<!-- 생존 지도: 통계 / 이 자리 탭 -->
+<!-- 10년 변화: 통계 / 이 자리 탭 -->
 <aside class="panel only-survival" id="stats">
   <div class="tabs" role="tablist">
     <button role="tab" id="tabStats" class="on">통계</button>
@@ -46,7 +47,7 @@
     <button class="fold" id="statsFold" aria-label="통계 접기">–</button>
   </div>
   <section id="paneStats">
-    <h2><span id="statYear">2026</span> <span id="statArea">궁동·어은동</span></h2>
+    <h2><span id="statYear">2026</span> <span id="statArea">어궁동</span></h2>
     <div class="kpis">
       <div class="kpi"><b id="kOpen">0</b><span>영업 중</span></div>
       <button class="kpi new" id="kNewBtn" title="그해 새로 연 가게만 보기"><b id="kNew">0</b><span>그해 개업</span></button>
@@ -83,7 +84,7 @@
   </div>
 </div>
 
-<!-- 새내기 탐험 -->
+<!-- 새내기 시뮬레이션 -->
 <aside class="panel only-explore" id="explore">
   <button class="fold" id="exploreFold" aria-label="설정 접기">–</button>
   <h2>이동 수단</h2>
@@ -152,7 +153,7 @@
 <button id="infoBtn" aria-label="출처와 주의">ⓘ</button>
 <div class="panel" id="credit" hidden></div>
 <div id="intro" class="panel" hidden></div>
-<div id="loading"><b>궁동·어은동</b><span id="loadStep">데이터 불러오는 중…</span></div>
+<div id="loading"><b>어궁동 10년 지도</b><small>어궁동 가게 역사</small><span id="loadStep">데이터 불러오는 중…</span></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
